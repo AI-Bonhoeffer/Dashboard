@@ -4,7 +4,7 @@ import pandas as pd
 st.set_page_config(page_title="Bonhoeffer Dashboard", layout="wide")
 st.title("🌍 Bonhoeffer Master Data Dashboard")
 
-# ✅ CSS Styling
+# ————— CSS Styling —————
 st.markdown("""
     <style>
         html, body, [data-testid="stAppViewContainer"] {
@@ -18,7 +18,7 @@ st.markdown("""
             box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
         }
         section[data-testid="stSidebar"] {
-            background: linear-gradient(to bottom right, #e0f7fa, #284aad); 
+            background: linear-gradient(to bottom right, #e0f7fa, #284aad);
             color: white;
         }
         h1 {
@@ -27,13 +27,14 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ✅ Month List
-month_tabs = ["January", "February", "March", "April", "May", "June", "July",
-              "August", "September", "October", "November", "December"]
+# ————— Month Tabs —————
+month_tabs = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+]
 
-# ✅ Country and Intern/State Mapping for LEADS
+# ————— Country → Intern/State → sheet‑URL mappings —————
 country_sheets = {
- 
     "Mexico": {
         "Intern 1": "https://docs.google.com/spreadsheets/d/1nALlHhcBTFGqhHEOgxc2vLg6Wq7kr4n7EFeDeC9M3ho/export?format=csv",
         "Intern 2": "https://docs.google.com/spreadsheets/d/1y9Y8xwtZG891-t6NMAUGY8A6QFuKxltTZTjx325m6Ms/export?format=csv",
@@ -52,8 +53,8 @@ country_sheets = {
         "Intern 15": "https://docs.google.com/spreadsheets/d/174vzKnC-41Kuozg2kAj7J26tipMS168r1pzywQ9aOEA/export?format=csv",
         "Intern 16": "https://docs.google.com/spreadsheets/d/1F3nvGSFs9OTpLOxGwUOV2pVCAipc4PQZJ1jdYG9Jm0w/export?format=csv",
         "Intern 17": "https://docs.google.com/spreadsheets/d/16eH2A7O4PUcEZ40qtcfD_OMWIqoELsJuNMLEbjf4yRc/export?format=csv",
-        "All Data": "https://docs.google.com/spreadsheets/d/1LezlwNw1tj2DyRUBHZeTVHagczE_-gJKZ45PLpGvf0w/edit?gid=1651434560#gid=1651434560",
-
+        # … your other interns here …
+        "All Data": "https://docs.google.com/spreadsheets/d/1LezlwNw1tj2DyRUBHZeTVHagczE_-gJKZ45PLpGvf0w/gviz/tq?tqx=out:csv&sheet=Master_Mexico"
     },
     "India": {
         "Uttar Pradesh": "https://docs.google.com/spreadsheets/d/12k8yG0vDlmr0LJGDBZfswkJEjgEljwWzASIPHC56kik/export?format=csv",
@@ -78,8 +79,10 @@ country_sheets = {
         "Uttarakhand": "https://docs.google.com/spreadsheets/d/14RADRb1l9r6oJKsnEHYZJYyHzzmVLE5QGpjHqgBGqP4/export?format=csv",
         "Kerala": "https://docs.google.com/spreadsheets/d/1MnTncZ1khYo3Kd_PKZHvnsokS8yZ3_oEep_uKeTS78I/export?format=csv",
         "Meghalaya": "https://docs.google.com/spreadsheets/d/15mApXjqPzs0T86_93NtUTWJpKJ-0j282frDLirZI04w/export?format=csv",
-        "All Data": "https://docs.google.com/spreadsheets/d/1LezlwNw1tj2DyRUBHZeTVHagczE_-gJKZ45PLpGvf0w/edit?gid=498710976#gid=498710976",
+        # … your other states here …
+        "All Data": "https://docs.google.com/spreadsheets/d/1LezlwNw1tj2DyRUBHZeTVHagczE_-gJKZ45PLpGvf0w/gviz/tq?tqx=out:csv&sheet=Master_India"
     },
+
     "Philippines": {
         "Intern 1": "https://docs.google.com/spreadsheets/d/1luQXiR4QnyC_7-svw3-ryXfT2mMdYZYxbNhfm5a-TgY/export?format=csv"
     },
@@ -123,35 +126,55 @@ country_sheets = {
         "Intern 1": "https://docs.google.com/spreadsheets/d/1m30-T-oI6__7UyLFVsTKojvsQw5FzfoJTaX6XqnF1_g/export?format=csv",
         "Intern 2": "https://docs.google.com/spreadsheets/d/1l6IYqz3tBOTuYfcpiAEo8svyUnex1nvW3YkKJS9LOf4/export?format=csv"
     }
+    # … add other countries as before …
 }
 
-# ✅ Campaign Conversation Sheet IDs
+
+
+# ————— Conversation sheets for “Campaign Conversation” view —————
 conversation_sheets = {
     "Mexico": "1-INGrynbGU7IBLXggsoH9eFvAwgXPjPcFT_OOCPlgJA",
     "India": "1hHZCqXmQP-yd7X-WjJBWKCY2s-YENLj2dYtFXNWjOq4"
 }
 
-# ✅ Primary Sales Sheet Fixed URL
+# ————— Primary Sales Leads fixed CSV —————
 primary_sales_sheet_id = "1LezlwNw1tj2DyRUBHZeTVHagczE_-gJKZ45PLpGvf0w"
-primary_sales_url = f"https://docs.google.com/spreadsheets/d/{primary_sales_sheet_id}/gviz/tq?tqx=out:csv&sheet=Primary%20Sales"
+primary_sales_url = (
+    f"https://docs.google.com/spreadsheets/d/{primary_sales_sheet_id}"
+    f"/gviz/tq?tqx=out:csv&sheet=Primary%20Sales"
+)
 
-# ✅ Cache loader
+# ————— Caching loader —————
 @st.cache_data(ttl=3600)
-def load_csv_from_url(url):
+def load_csv_from_url(url: str) -> pd.DataFrame:
     return pd.read_csv(url)
 
-# ✅ View Mode
-view_mode = st.sidebar.radio("📊 Select View Mode", ["Leads", "Campaign Conversation", "Primary Sales Leads"])
+# ————— Sidebar: choose view —————
+view_mode = st.sidebar.radio(
+    "📊 Select View Mode",
+    ["Leads", "Campaign Conversation", "Primary Sales Leads"]
+)
 
-# -------------------- LEADS --------------------
-# -------------------- LEADS --------------------
+# ==================== LEADS ====================
 if view_mode == "Leads":
-    selected_country = st.sidebar.selectbox("🌍 Country", list(country_sheets.keys()))
-    selected_intern = st.sidebar.selectbox("👤 Intern/State", list(country_sheets[selected_country].keys()))
+    selected_country = st.sidebar.selectbox(
+        "🌍 Country", list(country_sheets.keys())
+    )
+    selected_intern = st.sidebar.selectbox(
+        "👤 Intern/State", list(country_sheets[selected_country].keys())
+    )
 
-    # Always extract Sheet ID and force "Data Sheet" tab
-    sheet_id = country_sheets[selected_country][selected_intern].split("/d/")[1].split("/")[0]
-    url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet=Data%20Sheet"
+    # for All Data, we already have a full CSV‐export URL pointing at Master_<Country>
+    if selected_intern == "All Data":
+        url = country_sheets[selected_country][selected_intern]
+    else:
+        # pull the base URL for that intern, extract its sheet ID, and point at the Data Sheet
+        base = country_sheets[selected_country][selected_intern]
+        sheet_id = base.split("/d/")[1].split("/")[0]
+        url = (
+            f"https://docs.google.com/spreadsheets/d/{sheet_id}"
+            f"/gviz/tq?tqx=out:csv&sheet=Data%20Sheet"
+        )
 
     st.subheader(f"📄 Leads Data — {selected_country} → {selected_intern}")
     try:
@@ -161,25 +184,30 @@ if view_mode == "Leads":
     except Exception as e:
         st.error(f"❌ Could not load data: {e}")
 
-# -------------------- CAMPAIGN CONVERSATION --------------------
+# ==================== CAMPAIGN CONVERSATION ====================
 elif view_mode == "Campaign Conversation":
-    selected_country = st.sidebar.selectbox("🌍 Country", list(conversation_sheets.keys()))
+    selected_country = st.sidebar.selectbox(
+        "🌍 Country", list(conversation_sheets.keys())
+    )
     selected_month = st.sidebar.selectbox("🗓️ Month", month_tabs)
 
     sheet_id = conversation_sheets[selected_country]
     encoded_month = selected_month.replace(" ", "%20")
-    convo_url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={encoded_month}"
+    url = (
+        f"https://docs.google.com/spreadsheets/d/{sheet_id}"
+        f"/gviz/tq?tqx=out:csv&sheet={encoded_month}"
+    )
 
     st.subheader(f"💬 Conversations — {selected_country} ({selected_month})")
     try:
-        df = load_csv_from_url(convo_url)
+        df = load_csv_from_url(url)
         st.success(f"✅ Loaded {len(df)} conversations.")
         st.dataframe(df, use_container_width=True)
     except Exception as e:
         st.error(f"❌ Could not load conversation data: {e}")
 
-# -------------------- PRIMARY SALES LEADS --------------------
-elif view_mode == "Primary Sales Leads":
+# ==================== PRIMARY SALES LEADS ====================
+else:
     st.subheader("📈 Primary Sales Leads (Fixed Sheet)")
     try:
         df = load_csv_from_url(primary_sales_url)
